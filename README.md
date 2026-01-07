@@ -45,9 +45,8 @@ https://data360.worldbank.org/en/dataset/OWID_CB
 https://www.irena.org/Publications/2025/Mar/Renewable-capacity-statistics-2025
 
 
-```bash
 git clone https://github.com/lcodecorn/CO2_project.git
-cd TRYCO2
+cd CO2_project.git
 
 2️ Install dependencies
 bash
@@ -69,9 +68,6 @@ Plotly – interactive charts and maps
 Streamlit – web application framework
 
 GeoJSON – country boundaries for mapping
-
-Data Source
-Our World in Data – CO₂ and Greenhouse Gas Emissions
 
 Project Goals
 Practice working with real-world country-level panel data
