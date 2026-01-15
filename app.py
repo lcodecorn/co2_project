@@ -81,6 +81,21 @@ metric_map = {
     }
 metric = metric_map.get(metric)
 
+metric_label_map = {
+    "energy_per_capita": "Energy per capita (kWh per person)",
+    "energy_per_gdp": "Energy per GDP (kWh per 2017-USD)",
+    "coal_co2": "Coal CO₂ emissions (million tonnes)",
+    "oil_co2": "Oil CO₂ emissions (million tonnes)",
+    "gas_co2": "Gas CO₂ emissions (million tonnes)",
+    "co2_total": "Total CO₂ emissions (million tonnes)",
+    "co2_fossils": "Fossil fuel CO₂ emissions (million tonnes)",
+}
+
+# In your choropleth:
+labels={metric: metric_label_map.get(metric, metric.replace("_", " ").title()), "year": "Year"}
+
+# In your titles/legends, use metric_label_map[metric] instead of metric.replace(...)
+
 df_year = df[df["year"] == year]
 
 fig = px.choropleth(
@@ -90,7 +105,7 @@ fig = px.choropleth(
     featureidkey="properties.iso_a3_eh",
     color=metric,
     hover_data=["year"],
-    labels={metric: metric.replace("_", " ").title(), "year": "Year"},
+    labels={metric: metric_label_map[metric].title(), "year": "Year"},
     hover_name="country",
     color_continuous_scale="Reds"
 )
@@ -121,7 +136,7 @@ fig_line = px.line(
     df_country,
     x="year",
     y=metric,
-    title=f"{country} — {metric.replace('_', ' ').title()} Over Time",
+    title=f"{country} — {metric_label_map[metric].title()} Over Time",
     color_discrete_sequence=["#FF0000"]
 )
 
@@ -148,7 +163,7 @@ fig_bar.data[0].showlegend = True
 
 if metric:
     line_trace = px.line(df_yearly, x="year", y=metric, color_discrete_sequence=["#FF0000"]).data[0]
-    line_trace.name = metric.replace('_', ' ').title()
+    line_trace.name = metric_label_map[metric].title()
     line_trace.showlegend = True
     fig_bar.add_trace(line_trace)
 
